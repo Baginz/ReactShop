@@ -119,3 +119,27 @@ export const deleteProductThunk = (id: number): thunkType => {
       });
   };
 };
+
+// export const addProductToCartThunk = (product: Product): thunkType => {
+//   return (dispatch) => {
+//     dispatch({ type: productsActionTypes.ADD_PRODUCT_TO_CART_REQUEST });
+//     productService
+//       .remove(id)
+//       .then(() => {
+//         dispatch({ type: productsActionTypes.DELETE_PRODUCT_SUCCES, id });
+//       })
+//       .catch((err: Error | AxiosError) => {
+//         if (axios.isAxiosError(err)) {
+//           dispatch({
+//             type: productsActionTypes.GET_PRODUCTS_FAILURE,
+//             error: err.response?.data.ToString(),
+//           });
+//         } else {
+//           dispatch({
+//             type: productsActionTypes.GET_PRODUCTS_FAILURE,
+//             error: err.message,
+//           });
+//         }
+//       });
+//   };
+// };

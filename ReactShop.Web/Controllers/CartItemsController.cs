@@ -46,7 +46,13 @@ namespace ReactShop.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProduct([FromBody] CreateCartItemCommand command)
+        public async Task<IActionResult> Create([FromBody] CreateCartItemCommand command)
+        {
+            return Ok(await _mediator.Send(command));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddProductToCart([FromBody] CreateCartItemCommand command)
         {
             return Ok(await _mediator.Send(command));
         }

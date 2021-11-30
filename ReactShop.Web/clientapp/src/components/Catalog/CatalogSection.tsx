@@ -2,6 +2,7 @@ import React, { FC, useState } from "react";
 import { Row, Layout, Modal } from "antd";
 import ProductCard from "./ProductCard";
 import { Product } from "../../types/products";
+import { Header } from "antd/lib/layout/layout";
 const { Content } = Layout;
 
 type CatalogSectionPropType = {
@@ -41,22 +42,25 @@ const CatalogSection: FC<CatalogSectionPropType> = (props) => {
   ));
 
   return (
-    <Content style={{ margin: "1px 1px 0", height: "100%" }}>
-      <Row justify="center" style={{ width: "100%" }}>
-        {productCards}
-      </Row>
-      <Modal
-        title="Product card"
-        visible={visible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        okButtonProps={{ disabled: false }}
-        cancelButtonProps={{ disabled: true }}
-        okText="In cart"
-      >
-        {selectedProduct.name}
-      </Modal>
-    </Content>
+    <Layout className="site-layout">
+      <Header className="header site-layout__header">Catalog </Header>
+      <Content style={{ margin: "1px 1px 0", height: "100%" }}>
+        <Row justify="center" style={{ width: "100%" }}>
+          {productCards}
+        </Row>
+        <Modal
+          title="Product card"
+          visible={visible}
+          onOk={handleOk}
+          onCancel={handleCancel}
+          okButtonProps={{ disabled: false }}
+          cancelButtonProps={{ disabled: true }}
+          okText="In cart"
+        >
+          {selectedProduct.name}
+        </Modal>
+      </Content>
+    </Layout>
   );
 };
 

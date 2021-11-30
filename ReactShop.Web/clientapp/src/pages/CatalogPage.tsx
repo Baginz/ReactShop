@@ -1,22 +1,10 @@
-// import CatalogContainer from "./CatalogContainer";
-
-// const CatalogPage: React.FC = () => {
-//   return (
-//     <div>
-//       <CatalogContainer></CatalogContainer>
-//     </div>
-//   );
-// };
-
-// export default CatalogPage;
-
 import React, { FC, useEffect, useState } from "react";
 import "./catalog.css";
 import { Typography, Menu, Layout } from "antd";
-//import { CatalogProps } from "../components/Catalog/CatalogContainer";
+
 import CatalogSection from "../components/Catalog/CatalogSection";
-import ShoppingCart from "../components/Catalog/ShoppingCart";
-import { Product } from "../types";
+import ShoppingCartSection from "../components/Catalog/ShoppingCartSection";
+import { CartItem, Product } from "../types";
 import { useTypedSelector } from "hooks/useTypedSelector";
 
 const { Header, Sider } = Layout;
@@ -27,9 +15,17 @@ const CatalogPage: FC = () => {
     (state) => state.products
   );
   const { categories } = useTypedSelector((state) => state.categories);
+  const { currentUser } = useTypedSelector((state) => state.auth);
+  const shoppingCart = currentUser ? currentUser.shoppingCart : null;
 
   const [filteredProducts, setFilteredProducts] = useState(productsFromStore);
   const [productsInCart, setProductsInCart] = useState([] as Product[]);
+
+  const [item, setCartItem] = React.useState({
+    shoppingCartId: currentUser ? currentUser.shoppingCart?.id : null,
+    amount: 0,
+    dateCreated: new Date(),
+  } as CartItem);
 
   useEffect(() => {
     setFilteredProducts(productsFromStore);
@@ -67,19 +63,12 @@ const CatalogPage: FC = () => {
               {categoryMenu}
             </Menu>
           </Sider>
-          <Layout className="site-layout">
-            <Header className="header site-layout__header">Catalog </Header>
-            <CatalogSection
-              onAddToCart={handleAddToCart}
-              filteredProducts={filteredProducts}
-            ></CatalogSection>
-          </Layout>
-          <Layout className="site-layout">
-            <Header className="header site-layout__header">
-              Shopping cart
-            </Header>
-            <ShoppingCart products={productsInCart}></ShoppingCart>
-          </Layout>
+          <CatalogSection
+            onAddToCart={handleAddToCart}
+            filteredProducts={filteredProducts}
+          ></CatalogSection>
+
+          <ShoppingCartSection products={productsInCart}></ShoppingCartSection>
         </Layout>
       </div>
     </div>

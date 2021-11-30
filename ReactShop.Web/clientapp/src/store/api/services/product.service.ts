@@ -34,6 +34,12 @@ const removeAll = () => {
   });
 };
 
+const addToCart = () => {
+  return http.post(`/shoppingCart`).then((response) => {
+    return response.data;
+  });
+};
+
 export const productService = {
   getAll,
   get,
